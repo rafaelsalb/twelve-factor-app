@@ -9,6 +9,7 @@ dependencies = [
     "flask-jwt-extended>=4.7.1",
     "flask-migrate>=4.1.0",
     "flask-sqlalchemy>=3.1.1",
+    "python-dotenv>=1.1.1",
 ]
 
 [dependency-groups]
@@ -19,6 +20,12 @@ dev = [
     "isort>=6.0.1",
     "pre-commit>=4.3.0",
 ]
+
+[project.scripts]
+dev = "scripts.devserver:run"
+
+[tool.uv]
+package = true
 
 [tool.pre-commit]
 default_install_hook_types = ["pre-commit"]
