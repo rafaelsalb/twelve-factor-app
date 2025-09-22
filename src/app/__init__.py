@@ -19,6 +19,6 @@ def create_app():
 
     from . import models, routes
 
-    app.register_blueprint(routes.bp)
+    routes.register_blueprints(app)
 
     return app
