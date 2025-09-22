@@ -14,6 +14,8 @@ def login():
     username = data.get("username")
     password = data.get("password")
 
+    if not username or not password:
+        return {"message": "Username and password are required."}, 400
     user = User.query.filter_by(username=username).one_or_none()
     if user is None:
         return {"message": "Invalid credentials."}, 401
