@@ -43,6 +43,7 @@ def register():
     try:
         db.session.commit()
     except sa.exc.IntegrityError:
+        db.session.rollback()
         return {"message": f"A user with the username '{username}' already exists."}
 
     return {"message": "User created successfully."}, 201
