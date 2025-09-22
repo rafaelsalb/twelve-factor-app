@@ -16,7 +16,7 @@ def login():
 
     user = User.query.filter_by(username=username).one_or_none()
     if user is None:
-        return {"message": f"No user with username {username}."}
+        return {"message": "Invalid credentials."}, 401
     if user.check_password(password):
         token = create_access_token(identity=username)
         return {"message": "Login successful.", "token": token}
