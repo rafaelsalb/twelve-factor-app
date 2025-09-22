@@ -46,6 +46,10 @@ def update(id):
     content = data.get("content")
     try:
         post = Post.query.get(id)
+
+        if post is None:
+            return {"message": "Post not found."}, 404
+
         if post.author.id == current_user.id:
             post.content = content
             db.session.commit()
