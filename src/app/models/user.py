@@ -1,14 +1,18 @@
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .. import db
 
 
 class User(db.Model):
+    __tablename__ = "user"
+
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(db.String(64), unique=True)
     email: Mapped[str] = mapped_column(db.String(128))
     password_hash: Mapped[str | None] = mapped_column()
+
+    posts: Mapped[list["Post"]] = relationship(back_populates="author")
 
     def set_password(self, password: str):
         self.password_hash = generate_password_hash(password)

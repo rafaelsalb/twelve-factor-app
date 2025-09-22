@@ -2,10 +2,16 @@ import sqlalchemy as sa
 from flask import Blueprint, request
 from flask_jwt_extended import create_access_token
 
-from .. import db
+from .. import db, jwt
 from ..models.user import User
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
+
+
+@jwt.user_lookup_loader
+def user_lookup_callback(_jwt_header, jwt_data):
+    identity = jwt_data["sub"]
+    return User.query.filter_by(id=identity).one_or_none()
 
 
 @bp.post("/login")
@@ -20,7 +26,7 @@ def login():
     if user is None:
         return {"message": "Invalid credentials."}, 401
     if user.check_password(password):
-        token = create_access_token(identity=username)
+        token = create_access_token(identity=str(user.id))
         return {"message": "Login successful.", "token": token}
     else:
         return {"message": "Invalid credentials."}, 401

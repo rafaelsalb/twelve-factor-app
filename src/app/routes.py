@@ -1,6 +1,6 @@
 from flask import Blueprint, current_app
 
-from .controllers import auth
+from .controllers import auth, post, user
 
 bp = Blueprint("index", __name__, url_prefix="")
 
@@ -16,3 +16,5 @@ def register_blueprints(app):
     """
     app.register_blueprint(bp)
     app.register_blueprint(auth.bp)
+    app.register_blueprint(post.bp)
+    app.register_blueprint(user.bp)

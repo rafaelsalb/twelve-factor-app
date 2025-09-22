@@ -4,3 +4,4 @@ exclude = .git, *__pycache__*, *migrations/versions/*
 extend-ignore =
     E402,
     F401
+per-file-ignores = *models/*:F821
