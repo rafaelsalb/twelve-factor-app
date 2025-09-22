@@ -33,6 +33,9 @@ def register():
     email = data.get("email")
     password = data.get("password")
 
+    if not username or not email or not password:
+        return {"message": "Username, email and password are required."}, 400
+
     user = User(username=username, email=email)
     user.set_password(password)
 
