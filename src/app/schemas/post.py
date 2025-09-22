@@ -1,5 +1,4 @@
 from marshmallow import Schema, fields
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 
 class PostSchema(Schema):
