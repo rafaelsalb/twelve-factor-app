@@ -1,7 +1,13 @@
 import logging
 import os
 
+from dotenv import load_dotenv
+
+from .utils import raise_if_default
+
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+load_dotenv()
 
 
 class Config:
@@ -9,7 +15,11 @@ class Config:
         "DATABASE_URL"
     ) or "sqlite:///" + os.path.join(basedir, "app.db")
 
-    JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY") or "super-secret"
+    JWT_SECRET_KEY = raise_if_default(
+        "JWT_SECRET_KEY",
+        os.environ.get("JWT_SECRET_KEY", "super-secret"),
+        "super-secret",
+    )
 
 
 logging.debug(Config.SQLALCHEMY_DATABASE_URI)
