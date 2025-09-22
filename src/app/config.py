@@ -20,6 +20,3 @@ class Config:
         os.environ.get("JWT_SECRET_KEY", "super-secret"),
         "super-secret",
     )
-
-
-logging.debug(Config.SQLALCHEMY_DATABASE_URI)
