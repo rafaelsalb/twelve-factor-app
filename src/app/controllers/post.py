@@ -74,6 +74,7 @@ def delete(id):
             db.session.delete(post)
             db.session.commit()
         else:
+            db.session.rollback()
             return {"message": "You are not the author of this post."}, 401
     except Exception:
         return {"message": "Something went wrong while deleting the post."}, 400
