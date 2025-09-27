@@ -59,3 +59,22 @@ def update(id):
         db.session.rollback()
         return {"message": "Something went wrong while updating the post."}, 400
     return jsonify(PostSchema().dump(post))
+
+
+@bp.delete("/<id>")
+@jwt_required()
+def delete(id):
+    try:
+        post = Post.query.get(id)
+
+        if post is None:
+            return {"message": "Post not found."}, 404
+
+        if post.author.id == current_user.id:
+            db.session.delete(post)
+            db.session.commit()
+        else:
+            return {"message": "You are not the author of this post."}, 401
+    except Exception:
+        return {"message": "Something went wrong while deleting the post."}, 400
+    return jsonify(PostSchema().dump(post))
