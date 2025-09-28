@@ -8,3 +8,7 @@ class UserSchema(Schema):
     username = fields.String()
     email = fields.String()
     posts = fields.List(fields.Nested(PostSchema))
+
+
+class UpdateUserSchema(Schema):
+    email = fields.String(load_only=True, required=True)

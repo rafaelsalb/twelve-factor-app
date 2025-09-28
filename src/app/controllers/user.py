@@ -43,7 +43,8 @@ def update(id):
             return {"message": "User not found."}, 404
 
         data = UpdateUserSchema().load(request.json)
-        user.email = data["email"]
+        email = data.get("email")
+        user.email = email
 
         db.session.commit()
     except Exception:
